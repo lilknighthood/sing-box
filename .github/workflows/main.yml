@@ -73,14 +73,15 @@ jobs:
           ./gradlew assembleRelease --debug
       
       - name: Sign SFA
-        uses: PuerNya/sign-android-release@v2.0.4
+        uses: r0adkll/sign-android-release@v1
         env:
           BUILD_TOOLS_VERSION: ${{steps.sdk.outputs.version}}
         with:
           releaseDirectory: SFA/app/build/outputs/apk/other/release
-          signingKeyBase64: ${{ secrets.SIGN_KEY }}
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Upload arm64-v8a artifact
         uses: actions/upload-artifact@v4.1.0
